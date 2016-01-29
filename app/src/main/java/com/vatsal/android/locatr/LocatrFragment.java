@@ -121,33 +121,5 @@ public class LocatrFragment extends Fragment {
                 });
     }
 //update Changes
-    private class SearchTask extends AsyncTask<Location,Void,Void> {
-        private GalleryItem mGalleryItem;
-        private Bitmap mBitmap;
 
-        @Override
-        protected Void doInBackground(Location... params) {
-            FlickrFetchr fetchr = new FlickrFetchr();
-            List<GalleryItem> items = fetchr.searchPhotos(params[0]);
-
-            if (items.size() == 0) {
-                return null;
-            }
-
-            mGalleryItem = items.get(0);
-
-            try {
-                byte[] bytes = fetchr.getUrlBytes(mGalleryItem.getUrl());
-                mBitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-            } catch (IOException ioe) {
-                Log.i("SearchTask", "Unable to download bitmap", ioe);
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            mImageView.setImageBitmap(mBitmap);
-        }
-    }
 }
